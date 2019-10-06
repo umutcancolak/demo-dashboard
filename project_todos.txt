@@ -1,0 +1,11 @@
+ - Add Signin feature +
+   - add signin button +
+   - add signin html +
+   - create /signin route +
+   - finish route function +
+ - Make home dashboard to dash +
+ - Clean Dashboard (Delete mailbox, unnecessary icons etc.) +
+ - Learn to add nav-bar item and edit them
+   - Add analytics section
+      - add same dash page into it
+ 
