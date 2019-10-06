@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Jan 25 22:34:51 2019
-
-@author: jimmybow
-"""
-
 from datetime import datetime, timedelta
 from flask_login import current_user
 import dash_html_components as html

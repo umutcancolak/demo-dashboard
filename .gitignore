@@ -10,9 +10,10 @@ __pycache__/
 *.db
 *.log
 
+# # venv
+# env
 # venv
-env
-venv
+flask_template_env/
 
 # other
 .DS_Store
