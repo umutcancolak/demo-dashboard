@@ -5,9 +5,11 @@
    - finish route function +
  - Make home dashboard to dash +
  - Clean Dashboard (Delete mailbox, unnecessary icons etc.) +
- - Learn to add nav-bar item and edit them
+ - Learn to add nav-bar item and edit them +
    - Add analytics section +
       - add same dash page into it +
-      - add your demo dashboard for dature into it
+      - add your demo dashboard for dature into it +
  - Add flask-restful features
+   - add sensor endpoint for devices  
+ 
  - Start to build dash apps

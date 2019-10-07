@@ -1,8 +1,11 @@
 from flask import Flask, url_for
 from flask_login import current_user
+from flask_restful import Api
+
 from .extensions import db, login_manager
 from importlib import import_module
 from .base.models import User
+from .base.resources import Sensor
 from Dashboard import Dash_App1, Dash_App2, Dash_App3
 from os import path
 import logging
@@ -71,6 +74,11 @@ def apply_themes(app):
                     values['filename'] = theme_file
         return url_for(endpoint, **values)
 
+def create_endpoints(Server):
+    api = Api(Server)
+
+    api.add_resource(Sensor,"/api/sensors")
+
 
 def create_app(config, selenium=False):
     app = Flask(__name__, static_folder='base/static')
@@ -82,6 +90,7 @@ def create_app(config, selenium=False):
     configure_database(app)
     configure_logs(app)
     apply_themes(app)
+    create_endpoints(app)
     app = Dash_App1.Add_Dash(app)
     app = Dash_App2.Add_Dash(app)
     app = Dash_App3.Add_Dash(app)
