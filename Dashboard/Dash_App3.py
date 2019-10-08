@@ -31,7 +31,7 @@ plot_data = go.Scatter(
                 color='#73A839'
             ))
         )
-plot_layout = go.Layout(
+graph_layout = go.Layout(
                 title = "Air Temperature Data",
                 xaxis=dict(
                     showline=False,
@@ -66,34 +66,50 @@ plot_layout = go.Layout(
                 paper_bgcolor = 'white'
                 )
 
-fig = go.Figure({'data': [plot_data],'layout' : plot_layout})
+fig = go.Figure({'data': [plot_data],'layout' : graph_layout})
 
 layout = html.Div(
     [	
-        html.H1("Dature Project",style = {
-            'textAlign': 'center',
-            "margin-top": "2.5%",
-            "font-size" : "3rem",
-            "color": "#73A839"
-            }),
-        dbc.Button("Real Time On",id = "button",
+        dbc.Row([
+            dbc.Col(
+                daq.PowerButton(
+                    id='my-power-button',
+                    label = "LED STATUS",
+                    size = 60,
+                    on=False,
+                    color = "#73A839",
+                    # style = {
+                    #     'top': '1.5%',
+                    #     'left':'20%',
+                    #     'position':'absolute'
+                    #     }
+                    ),
+            width = {"size": 2, "order": 1, "offset": 0}),
+            dbc.Col(
+                dbc.Button(
+                    "Real Time On",
+                    id = "button",
                     color = "success",
+                    # style = {
+                    #     'top': '6.8%',
+                    #     'left':'8%',
+                    #     'position':'absolute'
+                    #     }
+                    ),
+            width = {"size": 2, "order": "first", "offset": 0}),
+            dbc.Col(
+                html.H1(
+                    "Dature Project",
                     style = {
-                        'top': '6.8%',
-                        'left':'8%',
-                        'position':'absolute'
-                        }),
-        daq.PowerButton(id='my-power-button',
-                        label = "LED STATUS",
-                        size = 60,
-                        on=False,
-                        color = "#73A839",
-                        style = {
-                        'top': '1.5%',
-                        'left':'20%',
-                        'position':'absolute'
-                        }),
-        dcc.Graph(id='live-graph', animate=False,style = {"margin-top":"2%"}),
+                        # 'textAlign': 'center',
+                        # "margin-top": "2.5%",
+                        # "font-size" : "3rem",
+                        "color": "#73A839"
+                    }
+                ),
+            width = {"size": 4, "order": 2, "offset": 0})
+        ],justify="start",align="center"),
+        dbc.Row(dbc.Col(dcc.Graph(id='live-graph', animate=False,style = {"margin-top":"2%"})),justify="start"),
         dcc.Interval(
             id='graph-update',
             interval=1000,
@@ -106,6 +122,7 @@ def Add_Dash(server):
     app = Dash(server=server, url_base_pathname=url_base, external_stylesheets=[dbc.themes.BOOTSTRAP])
     apply_layout_with_auth(app, layout)
 
+    # power button for led turn on/off state
     @app.callback(Output('my-power-button', 'label'),
                 [Input('my-power-button', 'on')])
     def update_led_state(on):
@@ -128,6 +145,7 @@ def Add_Dash(server):
     @app.callback(Output('live-graph', 'figure'),
                 [Input('graph-update', 'n_intervals')])
     def update_graph_scatter(n):
+        global graph_layout
         data = go.Scatter(
                 X.append(X[-1]+1),
                 Y.append(random.uniform(20,40)),
@@ -141,6 +159,6 @@ def Add_Dash(server):
                     color='#73A839'
                     ))
                 )
-        return {'data': [data],'layout' : layout}
+        return {'data': [data],'layout' : graph_layout}
 
     return app.server

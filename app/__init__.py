@@ -6,7 +6,7 @@ from .extensions import db, login_manager
 from importlib import import_module
 from .base.models import User
 from .base.resources import Sensor
-from Dashboard import Dash_App1, Dash_App2, Dash_App3
+from Dashboard import Dash_Home, Dash_App2, Dash_App3
 from os import path
 import logging
 
@@ -76,7 +76,6 @@ def apply_themes(app):
 
 def create_endpoints(Server):
     api = Api(Server)
-
     api.add_resource(Sensor,"/api/sensors")
 
 
@@ -91,7 +90,7 @@ def create_app(config, selenium=False):
     configure_logs(app)
     apply_themes(app)
     create_endpoints(app)
-    app = Dash_App1.Add_Dash(app)
+    app = Dash_Home.Add_Dash(app)
     app = Dash_App2.Add_Dash(app)
     app = Dash_App3.Add_Dash(app)
     return app
