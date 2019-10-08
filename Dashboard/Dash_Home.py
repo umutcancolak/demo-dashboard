@@ -56,7 +56,7 @@ def Add_Dash(server):
         if pathname == "/dash/home/":
             if current_user.username == "admin":
                 df = pd.DataFrame([user.json() for user in User.find_all()])
-                df = df[["id","username","e-mail"]]
+                df = df[["user_id","username","e-mail"]]
                 columns=[{"name": i, "id": i} for i in df.columns]
                 data= df.to_dict("records")
                 return create_users_table(data,columns)

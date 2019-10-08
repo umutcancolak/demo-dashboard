@@ -1,8 +1,15 @@
 from . import blueprint
 from flask import render_template, current_app, request, redirect
 from flask_login import login_required, current_user
-from .forms import add_user_Form, delete_user_Form, change_password_Form, setting_password_Form
-from ..base.models import User
+from .forms import (
+    add_user_Form, 
+    delete_user_Form, 
+    change_password_Form, 
+    setting_password_Form, 
+    add_field_Form,
+    add_sensor_Form
+    )
+from ..base.models import User, FieldInformationModel, SensorInformationModel
 
 @blueprint.route('/add_user', methods=['GET', 'POST'])
 @login_required
@@ -88,3 +95,38 @@ def change_password():
                 status = "Origin Password Error !"
             return render_template('change_password.html', form = form, status = status)
         return render_template('change_password.html', form = form, status = '')
+
+@blueprint.route('/add_field', methods=['GET', 'POST'])
+@login_required
+def add_field():
+    form = add_field_Form(request.form)
+    if 'Add' in request.form:
+        admin_user = current_app.config['ADMIN']['username']
+        if current_user.username == admin_user: 
+            status = "Admin user does not have permission to create field!"
+            return render_template('add_field.html', form = form, status = status)
+        user = User.query.filter_by(username=current_user.username).first()
+        FieldInformationModel(user.id,request.form["field_name"]).save_to_db()        
+        status = 'Add field success !'        
+        return render_template('add_field.html', form = form, status = status)
+    return render_template('add_field.html', form = form, status = '')
+
+
+@blueprint.route('/add_sensor', methods=['GET', 'POST'])
+@login_required
+def add_sensor():
+    form = add_sensor_Form(request.form)
+    if 'Add' in request.form:
+        admin_user = current_app.config['ADMIN']['username']
+        if current_user.username == admin_user: 
+            status = "Admin user does not have permission to create sensor!"
+            return render_template('add_sensor.html', form = form, status = status)
+        user = User.query.filter_by(username=current_user.username).first()
+        if FieldInformationModel.find_by_user_id_and_field_name(user.id, request.form["field_name"]):
+            new_sensor = SensorInformationModel(user.id,request.form["field_name"],request.form["sensor_name"])
+            new_sensor.save_to_db()
+            status = "Add sensor success ! Your device id : {}".format(new_sensor.get_device_id())
+            return render_template('add_sensor.html', form = form, status = status)        
+        status = 'Add sensor failed ! There is no field name like {}'.format(request.form["field_name"])
+        return render_template('add_sensor.html', form = form, status = status)
+    return render_template('add_sensor.html', form = form, status = '')

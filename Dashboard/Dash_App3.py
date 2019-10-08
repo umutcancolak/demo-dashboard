@@ -78,11 +78,6 @@ layout = html.Div(
                     size = 60,
                     on=False,
                     color = "#73A839",
-                    # style = {
-                    #     'top': '1.5%',
-                    #     'left':'20%',
-                    #     'position':'absolute'
-                    #     }
                     ),
             width = {"size": 2, "order": 1, "offset": 0}),
             dbc.Col(
@@ -90,26 +85,19 @@ layout = html.Div(
                     "Real Time On",
                     id = "button",
                     color = "success",
-                    # style = {
-                    #     'top': '6.8%',
-                    #     'left':'8%',
-                    #     'position':'absolute'
-                    #     }
                     ),
             width = {"size": 2, "order": "first", "offset": 0}),
             dbc.Col(
                 html.H1(
                     "Dature Project",
                     style = {
-                        # 'textAlign': 'center',
-                        # "margin-top": "2.5%",
-                        # "font-size" : "3rem",
+                        "textAlign": "center",
                         "color": "#73A839"
                     }
                 ),
             width = {"size": 4, "order": 2, "offset": 0})
         ],justify="start",align="center"),
-        dbc.Row(dbc.Col(dcc.Graph(id='live-graph', animate=False,style = {"margin-top":"2%"})),justify="start"),
+        dbc.Row(dbc.Col(dcc.Graph(id='live-graph', animate=False,style = {"margin-top":"2%"}))),
         dcc.Interval(
             id='graph-update',
             interval=1000,
