@@ -75,6 +75,10 @@ class User(db.Model, UserMixin):
     @classmethod
     def find_all(cls):
         return cls.query.all()
+    
+    @classmethod
+    def find_by_username(cls, username):
+        return cls.query.filter_by(username = username).first()
 
 
 @login_manager.user_loader
@@ -144,7 +148,7 @@ class SensorInformationModel(db.Model):
             "user_id":self.user_id,
             "sensor_id":self._id,
             "field_name" :self.field_name,
-            "sensor_type":self.sensor_type,
+            "sensor_name":self.sensor_type,
             "sensor_unique_id" : self.get_device_id()
         }         
 

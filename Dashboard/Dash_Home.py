@@ -34,6 +34,46 @@ def create_users_table(data,columns):
         ],style={"width":"100%","margin-left":"30%"}))
     ]
 
+def create_things_table(data_fields,columns_fields,data_sensors,columns_sensors):
+    return  [
+        dbc.Row(html.H4("Registered Fields"),style={"margin-left":"47%"}),
+        dbc.Row(html.Div([
+                DataTable(
+                    data=data_fields,
+                    columns=columns_fields,
+                    css= [
+                        {
+                            'selector': 'td.cell--selected, td.focused', 
+                            'rule': 'background-color: #FFFF !important;'
+                        },
+                        {
+                            'selector': 'table', 
+                            'rule': "width: 50% !important; "
+                        }
+                    ],
+                    style_table={'minWidth': '100px'}
+                )
+        ],style={"width":"100%","margin-left":"30%"})),
+        dbc.Row(html.H4("Registered Sensors"),style={"margin-left":"47%"}),
+        dbc.Row(html.Div([
+                DataTable(
+                    data=data_sensors,
+                    columns=columns_sensors,
+                    css= [
+                        {
+                            'selector': 'td.cell--selected, td.focused', 
+                            'rule': 'background-color: #FFFF !important;'
+                        },
+                        {
+                            'selector': 'table', 
+                            'rule': "width: 50% !important; "
+                        }
+                    ],
+                    style_table={'minWidth': '100px'}
+                )
+        ],style={"width":"100%","margin-left":"30%"}))
+    ]    
+
 
 layout = html.Div([
     dcc.Location(id='url', refresh=False),
@@ -61,7 +101,16 @@ def Add_Dash(server):
                 data= df.to_dict("records")
                 return create_users_table(data,columns)
             else:
-                return dbc.Row(html.H4("You are not authorized to see registered Users"),style={"margin-left":"38%"})   
+                user_data = User.find_by_username(current_user.username).jsonify_all()
+                field_df = pd.DataFrame(user_data["field_info"])
+                field_df = field_df[["user_id","field_id","field_name"]]
+                field_columns = [{"name": i, "id": i} for i in field_df.columns]
+                field_data = field_df.to_dict("records")
+                sensor_df = pd.DataFrame(user_data["sensor_info"])
+                sensor_df = sensor_df[["user_id","sensor_id","sensor_name","field_name","sensor_unique_id"]]
+                sensor_columns = [{"name": i, "id": i} for i in sensor_df.columns]
+                sensor_data = sensor_df.to_dict("records")
+                return create_things_table(field_data,field_columns,sensor_data,sensor_columns)
         return None
     
     return app.server

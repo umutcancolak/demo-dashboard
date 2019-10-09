@@ -4,4 +4,5 @@ from .models import User, SensorInformationModel, FieldInformationModel
 
 class Sensor(Resource):
     def get(self):
-        return jsonify({"message": [user.jsonify_all() for user in User.find_all()]})
+        # return jsonify({"message": [user.jsonify_all() for user in User.find_all()]})
+        return jsonify({"message": User.find_by_username("umutcan").jsonify_all()})
