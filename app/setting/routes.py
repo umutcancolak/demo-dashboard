@@ -7,7 +7,9 @@ from .forms import (
     change_password_Form, 
     setting_password_Form, 
     add_field_Form,
-    add_sensor_Form
+    add_sensor_Form,
+    delete_field_Form,
+    delete_sensor_Form
     )
 from ..base.models import User, FieldInformationModel, SensorInformationModel
 
@@ -130,3 +132,51 @@ def add_sensor():
         status = 'Add sensor failed ! There is no field name like {}'.format(request.form["field_name"])
         return render_template('add_sensor.html', form = form, status = status)
     return render_template('add_sensor.html', form = form, status = '')
+
+@blueprint.route('/delete_field', methods=['GET', 'POST'])
+@login_required
+def delete_field():
+    form = delete_field_Form(request.form)
+    if 'Add' in request.form:
+        admin_user = current_app.config['ADMIN']['username']
+        if current_user.username == admin_user: 
+            status = "Admin user does not have permission to delete field!"
+            return render_template('delete_field.html', form = form, status = status)
+        user = User.query.filter_by(username=current_user.username).first()
+        current_field = FieldInformationModel.find_by_user_id_and_field_name(user.id, request.form["field_name"])
+        if current_field:
+            current_field.delete_from_db()
+            status = "Deleted Field Succes!"
+            return render_template('delete_field.html', form = form, status = status)
+        status = "There is no registered field for user {} such as {}".format(user.username,request.form["field_name"])
+        return render_template('delete_field.html', form = form, status = status)
+    return render_template('delete_field.html', form = form, status = '')
+
+@blueprint.route('/delete_sensor', methods=['GET', 'POST'])
+@login_required
+def delete_sensor():
+    form = delete_sensor_Form(request.form)
+    if 'Add' in request.form:
+        admin_user = current_app.config['ADMIN']['username']
+        if current_user.username == admin_user: 
+            status = "Admin user does not have permission to delete sensor!"
+            return render_template('delete_sensor.html', form = form, status = status)
+        user = User.query.filter_by(username=current_user.username).first()
+        device_id = request.form["device_id"]
+        if not (all([s.isnumeric() for s in device_id.split("_")]) and len(device_id.split("_")) == 2):
+            status = "Device ID is not in desired format!"
+            return render_template('delete_sensor.html', form = form, status = status)
+        user_id,sensor_id = device_id.split("_")
+        if int(user_id) != user.id:
+            status = "This sensor doesn't belong to you! Please type your device ID"
+            return render_template('delete_sensor.html', form = form, status = status)
+        sensor = SensorInformationModel.find_by_user_id_and_sensor_id(user_id=user_id, _id=sensor_id)
+        if sensor:
+            sensor.delete_from_db()
+            status = "Delete success!"
+            return render_template('delete_sensor.html', form = form, status = status)
+        status = "Sensor doesn't already exist!"
+        return render_template('delete_sensor.html', form = form, status = status)
+    return render_template('delete_sensor.html', form = form, status = '')        
+        
+        

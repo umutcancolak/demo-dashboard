@@ -115,7 +115,7 @@ class FieldInformationModel(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    def delete_field_from_db(self):
+    def delete_from_db(self):
         db.session.delete(self)
         db.session.commit()
 
@@ -156,6 +156,10 @@ class SensorInformationModel(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def delete_from_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
     def update_field(self, new_field):
         self.field_name = new_field
         db.session.commit()
@@ -169,6 +173,10 @@ class SensorInformationModel(db.Model):
     @classmethod
     def find_by_user_id_and_sensor_type(cls, user_id , sensor_type):
         return cls.query.filter_by(user_id = user_id , sensor_type = sensor_type ).first()
+    
+    @classmethod
+    def find_by_user_id_and_sensor_id(cls, user_id , _id):
+        return cls.query.filter_by(user_id = user_id , _id = _id).first()
 
     @classmethod
     def find_by_field_name_and_sensor_type(cls, field_name , sensor_type):

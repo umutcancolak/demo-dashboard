@@ -24,6 +24,12 @@ class change_password_Form(FlaskForm):
 class add_field_Form(FlaskForm):
     field_name = TextField('Type Field Name', id='field_name')
 
+class delete_field_Form(FlaskForm):
+    field_name = TextField('Type Field Name', id='deleted_field_name')
+
 class add_sensor_Form(FlaskForm):
     field_name = TextField('Type Field Name', id='sensor_field_name')
     sensor_name = TextField('Type Sensor Name', id='sensor_name')
+
+class delete_sensor_Form(FlaskForm):
+    device_id = TextField('Type Sensor Device ID', id='device_id')
