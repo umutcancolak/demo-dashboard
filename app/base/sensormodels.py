@@ -1,4 +1,4 @@
-from ..mongo_db import Database
+from ..mongodb import Database
 import datetime
 
 
@@ -11,14 +11,14 @@ class SensorModel(object):
     
     @staticmethod
     def get_all():
-        return [result for result in Database.find("sensor_trial",{})]
+        return [result for result in Database.find({})]
 
     @staticmethod
     def find_by_id(sensor_id):
-        return [data for data in Database.find("sensor_trial",{"id":sensor_id})]
+        return [data for data in Database.find({"id":sensor_id})]
 
     def save_to_mongo(self):
-        Database.insert("sensor_trial",self.json())
+        Database.insert(self.json())
 
     def json(self):
         """

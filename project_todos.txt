@@ -28,13 +28,15 @@
    - Home sayfasını düzenle +
      - Var olan sayfada users için tarlalarının ve sensörlerinin tablosunu göster +
      - Admin için tüm kullanıcıların sensör ve fieldlarını gösteren tabloları ekle (optional)
-   - Sensör için post apisi oluştur *
-     - Device id ile veriyi alıp mongo_db'ye bas
-     - Gerekirse sonradan ona güvenlik koy
-   - Analytic app kısmında dropdown ile bulunan sensörleri göster ve grafiği ona göre çiz
-     - Seçilen Sensöre göre grafiği güncelle
-     - Refresh rate ayarlayan buton koy 
-     - Daterange-picker koy verilerin aralığını seçebilme özelliği koy
+   - Sensör için post apisi oluştur +
+     - Device id ile veriyi alıp mongo_db'ye bas +
+     - Gerekirse sonradan ona güvenlik koy (optional)
+   - Analytic app kısmında dropdown ile bulunan sensörleri göster ve grafiği ona göre çiz *
+     - Analytic app demosundaki veri gönderme işlemini buton ile yap
+     - Dashboard kısmına bir app  daha koyup sensör verisini izle
+        - Seçilen Sensöre göre grafiği güncelle
+        - Refresh rate ayarlayan buton koy 
+        - Daterange-picker koy verilerin aralığını seçebilme özelliği koy
    - Signin sayfasında tarla ve özelliklerini de al 
 
 

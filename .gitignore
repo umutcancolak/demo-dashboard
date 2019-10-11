@@ -26,3 +26,6 @@ _templates
 
 # javascript
 package-lock.json
+
+# Testing app
+wemosBot.py

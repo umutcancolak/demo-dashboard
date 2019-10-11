@@ -2,10 +2,10 @@ from flask import Flask, url_for
 from flask_login import current_user
 from flask_restful import Api
 
-from .extensions import db, login_manager
+from .extensions import db, login_manager, mongo_db
 from importlib import import_module
 from .base.models import User
-from .base.resources import Sensor
+from .base.resources import Sensors, Sensor
 from Dashboard import Dash_Home, Dash_App2, Dash_App3
 from os import path
 import logging
@@ -13,6 +13,7 @@ import logging
 def register_extensions(app):
     db.init_app(app)
     login_manager.init_app(app)
+    
 
 
 def register_blueprints(app):
@@ -25,6 +26,7 @@ def configure_database(app):
 
     @app.before_first_request
     def initialize_database():
+        mongo_db.initialize()
         db.create_all()
         admin_username = app.config['ADMIN']['username']
         user = User.query.filter_by(username=admin_username).first()
@@ -76,7 +78,8 @@ def apply_themes(app):
 
 def create_endpoints(Server):
     api = Api(Server)
-    api.add_resource(Sensor,"/api/sensors")
+    api.add_resource(Sensors,"/api/sensors")
+    api.add_resource(Sensor,"/api/sensor/<string:sensor_id>")
 
 
 def create_app(config, selenium=False):
