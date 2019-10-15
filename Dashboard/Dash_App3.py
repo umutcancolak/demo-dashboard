@@ -82,7 +82,7 @@ layout = html.Div(
             width = {"size": 2, "order": 1, "offset": 0}),
             dbc.Col(
                 dbc.Button(
-                    "Real Time On",
+                    "Add Data",
                     id = "button",
                     color = "success",
                     ),
@@ -118,35 +118,38 @@ def Add_Dash(server):
         led_state = "OPEN" if on else "CLOSE"
         return "LED "+led_state
 
-    # Real Time ON/OFF Button Callback
-    @app.callback(
-        [Output('graph-update', 'disabled'),
-        Output('button', 'children')],
-        [Input('button', 'n_clicks')])
-    def update_output(n_clicks):
-        if n_clicks:
-            return [True,"Real Time: OFF"] if (n_clicks % 2 == 0) else [False,"Real Time: ON"]
-        else: 
-            return [False,"Real Time: ON"]
+    # # Real Time ON/OFF Button Callback
+    # @app.callback(
+    #     [Output('graph-update', 'disabled'),
+    #     Output('button', 'children')],
+    #     [Input('button', 'n_clicks')])
+    # def update_output(n_clicks):
+    #     if n_clicks:
+    #         return [True,"Real Time: OFF"] if (n_clicks % 2 == 0) else [False,"Real Time: ON"]
+    #     else: 
+    #         return [False,"Real Time: ON"]
 
     # Update Graph Callback
     @app.callback(Output('live-graph', 'figure'),
-                [Input('graph-update', 'n_intervals')])
+                [Input('button', 'n_clicks')])
     def update_graph_scatter(n):
         global graph_layout
-        data = go.Scatter(
-                X.append(X[-1]+1),
-                Y.append(random.uniform(20,40)),
-                x=list(X),
-                y=list(Y),
-                name='Scatter',
-                mode= 'lines+markers',
-                marker=dict(
-                    color='#73A839',
-                    line=dict(
-                    color='#73A839'
-                    ))
-                )
-        return {'data': [data],'layout' : graph_layout}
+        global plot_data
+        if n:
+            data = go.Scatter(
+                    X.append(X[-1]+1),
+                    Y.append(random.uniform(20,40)),
+                    x=list(X),
+                    y=list(Y),
+                    name='Scatter',
+                    mode= 'lines+markers',
+                    marker=dict(
+                        color='#73A839',
+                        line=dict(
+                        color='#73A839'
+                        ))
+                    )
+            plot_data = data
+        return {'data': [plot_data],'layout' : graph_layout}
 
     return app.server

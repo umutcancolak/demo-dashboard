@@ -102,14 +102,20 @@ def Add_Dash(server):
                 return create_users_table(data,columns)
             else:
                 user_data = User.find_by_username(current_user.username).jsonify_all()
-                field_df = pd.DataFrame(user_data["field_info"])
-                field_df = field_df[["user_id","field_id","field_name"]]
-                field_columns = [{"name": i, "id": i} for i in field_df.columns]
-                field_data = field_df.to_dict("records")
-                sensor_df = pd.DataFrame(user_data["sensor_info"])
-                sensor_df = sensor_df[["user_id","sensor_id","sensor_name","field_name","sensor_unique_id"]]
-                sensor_columns = [{"name": i, "id": i} for i in sensor_df.columns]
-                sensor_data = sensor_df.to_dict("records")
+                if user_data["field_info"]:
+                    field_df = pd.DataFrame(user_data["field_info"])
+                    field_df = field_df[["user_id","field_id","field_name"]]
+                    field_columns = [{"name": i, "id": i} for i in field_df.columns]
+                    field_data = field_df.to_dict("records")
+                else:
+                    field_data,field_columns = {},[]
+                if user_data["sensor_info"]:
+                    sensor_df = pd.DataFrame(user_data["sensor_info"])
+                    sensor_df = sensor_df[["user_id","sensor_id","sensor_name","field_name","sensor_unique_id"]]
+                    sensor_columns = [{"name": i, "id": i} for i in sensor_df.columns]
+                    sensor_data = sensor_df.to_dict("records")
+                else:
+                    sensor_data,sensor_columns = {},[]
                 return create_things_table(field_data,field_columns,sensor_data,sensor_columns)
         return None
     

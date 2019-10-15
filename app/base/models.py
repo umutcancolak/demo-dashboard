@@ -182,3 +182,14 @@ class SensorInformationModel(db.Model):
     def find_by_field_name_and_sensor_type(cls, field_name , sensor_type):
         return cls.query.filter_by(field_name = field_name , sensor_type = sensor_type ).first()
 
+    @classmethod
+    def find_all(cls):
+        return cls.query.all()
+
+    @classmethod
+    def find_all_unique_ids(cls):
+        return [user.json()["sensor_unique_id"] for user in cls.find_all()]
+
+    @classmethod
+    def find_unique_ids_by_user_id(cls, user_id):
+        return [user.json()["sensor_unique_id"] for user in cls.find_all() if user.json()["user_id"] == user_id]

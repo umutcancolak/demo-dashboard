@@ -7,7 +7,7 @@ class Database(object):
 
     @staticmethod
     def initialize():
-        client = pymongo.MongoClient(Database.URI)
+        client = pymongo.MongoClient(Database.URI) 
         Database.DATABASE = client["dature"]
 
     @staticmethod

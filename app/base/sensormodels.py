@@ -1,11 +1,10 @@
 from ..mongodb import Database
 import datetime
 
-
 class SensorModel(object):
-    def __init__(self, _id, moisture, temperature, date=datetime.datetime.now()):
+    def __init__(self, _id, moisture, temperature):
         self._id = _id
-        self.date = date
+        self.date = datetime.datetime.now()
         self.moisture = moisture
         self.temperature = temperature       
     
@@ -16,6 +15,14 @@ class SensorModel(object):
     @staticmethod
     def find_by_id(sensor_id):
         return [data for data in Database.find({"id":sensor_id})]
+
+    @staticmethod
+    def find_last_n_data_by_id(sensor_id, n):
+        return [data for data in Database.find({"id":sensor_id}).sort([("date",-1)]).limit(n)]
+
+    @staticmethod
+    def find_last_n_data_by_id_and_date(sensor_id, n, end , start):
+        return [data for data in Database.find({"id":sensor_id, "date":{'$lte': end, '$gte': start}}).sort([("date",-1)]).limit(n)]
 
     def save_to_mongo(self):
         Database.insert(self.json())

@@ -31,7 +31,7 @@
    - Sensör için post apisi oluştur +
      - Device id ile veriyi alıp mongo_db'ye bas +
      - Gerekirse sonradan ona güvenlik koy (optional)
-   - Analytic app kısmında dropdown ile bulunan sensörleri göster ve grafiği ona göre çiz *
+   - Analytic app kısmında dropdown ile bulunan sensörleri göster ve grafiği ona göre çiz
      - Analytic app demosundaki veri gönderme işlemini buton ile yap
      - Dashboard kısmına bir app  daha koyup sensör verisini izle
         - Seçilen Sensöre göre grafiği güncelle
