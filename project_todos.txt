@@ -31,14 +31,23 @@
    - Sensör için post apisi oluştur +
      - Device id ile veriyi alıp mongo_db'ye bas +
      - Gerekirse sonradan ona güvenlik koy (optional)
-   - Analytic app kısmında dropdown ile bulunan sensörleri göster ve grafiği ona göre çiz
-     - Analytic app demosundaki veri gönderme işlemini buton ile yap
-     - Dashboard kısmına bir app  daha koyup sensör verisini izle
-        - Seçilen Sensöre göre grafiği güncelle
-        - Refresh rate ayarlayan buton koy 
-        - Daterange-picker koy verilerin aralığını seçebilme özelliği koy
-   - Signin sayfasında tarla ve özelliklerini de al 
-
+   - Analytic app kısmında dropdown ile bulunan sensörleri göster ve grafiği ona göre çiz +
+     - Analytic app demosundaki veri gönderme işlemini buton ile yap +
+     - Dashboard kısmına bir app  daha koyup sensör verisini izle +
+        - Seçilen Sensöre göre grafiği güncelle +
+        - Refresh rate ayarlayan buton koy +
+        - Daterange-picker koy verilerin aralığını seçebilme özelliği koy +
+   - Access token koy ve security sekmesi altına authorization sayfası oluştur
+     - Önce expires delta kullanarak access token oluştur ve onunla giriş yaptır +
+     - Kullanıcı sensör kontrolü ekle her kullanıcı kendi access tokenını kullansın +
+        Note: Problem var ! Access token html sayfasından taşıyor. Çözülmesi gerek  !!
+     - Yeni bir tablo oluşturup içinde access tokenların oluşma zamanını tut (optional)
+     - Yeni bir tablo oluşturup blacklist oluşturup access token iptal etme özelliği getir  
+   - Config kısmını çöz ve postgresql ile bağlantıyı sağlayan ayarları yap 
+   - License dosyasını düzenle Umut Can ÇOLAK yap + 
+     - Readme.md dosyasını düzenle
+       - Gentenella ve antoine fourmi diye bahset         
+   - Signin sayfasında tarla ve özelliklerini de al (optional)
 
 
 

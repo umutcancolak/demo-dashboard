@@ -1,8 +1,8 @@
-from flask import Flask, url_for
+from flask import Flask, url_for, jsonify
 from flask_login import current_user
 from flask_restful import Api
 
-from .extensions import db, login_manager, mongo_db
+from .extensions import db, login_manager, mongo_db, jwt
 from importlib import import_module
 from .base.models import User
 from .base.resources import Sensors, Sensor
@@ -76,10 +76,34 @@ def apply_themes(app):
                     values['filename'] = theme_file
         return url_for(endpoint, **values)
 
-def create_endpoints(Server):
-    api = Api(Server)
+def create_endpoints(app):
+    api = Api(app)
     api.add_resource(Sensors,"/api/sensors")
     api.add_resource(Sensor,"/api/sensor/<string:sensor_id>")
+
+def create_jwt(app):
+    jwt.init_app(app)
+    
+    @jwt.expired_token_loader
+    def expired_token_callback():
+        return jsonify({
+            'message': 'The token has expired.',
+            'error': 'token_expired'
+        }), 401
+    
+    @jwt.invalid_token_loader
+    def invalid_token_callback(error):
+        return jsonify({
+            'description': 'Signature verification failed',
+            'error': 'invalid_token'
+        }), 401
+
+    @jwt.unauthorized_loader
+    def missing_token_callback(error):
+        return jsonify({
+            'description': 'Request does not contain an access token.',
+            'error': 'authorization_required'
+        }), 401
 
 
 def create_app(config, selenium=False):
@@ -88,6 +112,7 @@ def create_app(config, selenium=False):
     if selenium:
         app.config['LOGIN_DISABLED'] = True
     register_extensions(app)
+    create_jwt(app)
     register_blueprints(app)
     configure_database(app)
     configure_logs(app)

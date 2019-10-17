@@ -2,6 +2,8 @@
 
 [Gentelella](https://github.com/puikinsh/gentelella) is a free to use Bootstrap admin template.
 
+- [Online demo](https://colorlib.com/polygon/gentelella/)
+
 ![Gentelella Bootstrap Admin Template](https://cdn.colorlib.com/wp/wp-content/uploads/sites/2/gentelella-admin-template-preview.jpg "Gentelella Theme Browser Preview")
 
 This project integrates Gentelella with Flask using: 
@@ -10,9 +12,7 @@ This project integrates Gentelella with Flask using:
 - [flask_migrate](https://flask-migrate.readthedocs.io/en/latest/).
 - [dash](https://dash.plot.ly/).
 
-Here is an example of a real project implemented using Flask-Gentelella:
-- [Online demo](http://afourmy.pythonanywhere.com/)
-- [Source code](https://github.com/afourmy/eNMS)
+This example's template created by [afourmy](https://github.com/afourmy/flask-gentelella) implemented using Flask-Gentelella.
 
 ##  Install requirements 
     pipenv sync

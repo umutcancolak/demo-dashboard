@@ -9,8 +9,15 @@ from .forms import (
     add_field_Form,
     add_sensor_Form,
     delete_field_Form,
-    delete_sensor_Form
+    delete_sensor_Form,
+    get_access_token_Form
     )
+from flask_jwt_extended import (
+    create_access_token,
+    get_jwt_identity,
+    get_raw_jwt,
+)
+from datetime import timedelta
 from ..base.models import User, FieldInformationModel, SensorInformationModel
 
 @blueprint.route('/add_user', methods=['GET', 'POST'])
@@ -178,5 +185,16 @@ def delete_sensor():
         status = "Sensor doesn't already exist!"
         return render_template('delete_sensor.html', form = form, status = status)
     return render_template('delete_sensor.html', form = form, status = '')        
+        
+@blueprint.route('/jwt_access', methods=['GET', 'POST'])
+@login_required
+def get_access_token():
+    form =  get_access_token_Form(request.form)      
+    if "Add" in request.form:
+        user = User.query.filter_by(username=current_user.username).first()
+        expires = timedelta(minutes=int(request.form["time"]))
+        access_token = create_access_token(identity=user.id, expires_delta=expires)
+        return render_template('get_token.html', form = form, status = access_token)
+    return render_template('get_token.html', form = form, status = "")
         
         

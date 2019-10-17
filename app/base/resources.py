@@ -2,6 +2,12 @@ from flask import jsonify
 from flask_restful import Resource, reqparse
 from .models import User, SensorInformationModel, FieldInformationModel
 from .sensormodels import SensorModel
+from flask_jwt_extended import (
+    create_access_token,
+    get_jwt_identity,
+    get_raw_jwt,
+    jwt_required
+)
 
 import pandas as pd
 
@@ -31,11 +37,19 @@ class Sensor(Resource):
         required = True,
         help = "This field can not be left blank"
     )
+
+    @jwt_required
     def get(self, sensor_id):
-        return jsonify(SensorModel.find_by_id(sensor_id))
+        # return jsonify(SensorModel.find_by_id(sensor_id))
+        current_user = get_jwt_identity()
+        return jsonify({"current_user":current_user})
     
+    @jwt_required
     def post(self, sensor_id):
         data = Sensor.parser.parse_args()
+        current_user_id = get_jwt_identity()
+        if current_user_id != int(sensor_id.split("_")[0]):
+            return jsonify({"message":"You are not authenticated to post by this token!"})
         sensor_data = SensorModel(sensor_id, **data)
         try:
             sensor_data.save_to_mongo()
