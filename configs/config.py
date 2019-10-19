@@ -2,7 +2,8 @@ import os
 
 class Config(object):
     SECRET_KEY = 'key'
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///database.db'
+    # SQLALCHEMY_DATABASE_URI = 'sqlite:///database.db' sqlite URI
+    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://postgres:umut@127.0.0.1:5432/demo_dashboard"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_SECRET_KEY = 'umut'
     ADMIN = {'username': 'admin',

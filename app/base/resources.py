@@ -12,11 +12,12 @@ from flask_jwt_extended import (
 import pandas as pd
 
 class Sensors(Resource):
+    @jwt_required
     def get(self):
 
         # return jsonify({"message": [user.jsonify_all() for user in User.find_all()]})
         # return jsonify({"message": User.find_by_username("umutcan").jsonify_all()})
-        sensor_data = SensorModel.find_last_n_data_by_id("4_1", n=20)
+        sensor_data = SensorModel.find_last_n_data_by_id("2_1", n=20)
         
         return jsonify({
             "dates":[data["date"] for data in sensor_data],
@@ -40,6 +41,9 @@ class Sensor(Resource):
 
     @jwt_required
     def get(self, sensor_id):
+        """
+        Need to add specific sensor value here
+        """
         # return jsonify(SensorModel.find_by_id(sensor_id))
         current_user = get_jwt_identity()
         return jsonify({"current_user":current_user})
