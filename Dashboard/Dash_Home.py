@@ -26,7 +26,11 @@ def create_users_table(data,columns):
                         },
                         {
                             'selector': 'table', 
-                            'rule': "width: 50% !important; "
+                            'rule': "width: 50% !important; --accent: lightgrey !important;"
+                        },
+                        {
+                            "selector": 'td.cell--selected *, td.focused *',
+                            "rule": 'color: #3C3C3C !important;'
                         }
                     ],
                     style_table={'minWidth': '100px'}
@@ -48,8 +52,8 @@ def create_things_table(data_fields,columns_fields,data_sensors,columns_sensors)
                         },
                         {
                             'selector': 'table', 
-                            'rule': "width: 50% !important; "
-                        }
+                            'rule': "width: 50% !important; --accent: lightgrey !important;"
+                        },
                     ],
                     style_table={'minWidth': '100px'}
                 )
@@ -66,7 +70,7 @@ def create_things_table(data_fields,columns_fields,data_sensors,columns_sensors)
                         },
                         {
                             'selector': 'table', 
-                            'rule': "width: 50% !important; "
+                            'rule': "width: 50% !important; --accent: lightgrey !important;"
                         }
                     ],
                     style_table={'minWidth': '100px'}

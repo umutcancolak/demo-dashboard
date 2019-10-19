@@ -339,7 +339,7 @@ html , body{
 }
 .nav-md .container.body .col-md-3.left_col {
     min-height: 100%;
-    width: 12%;
+    width: 12.8%;
     padding: 0;
     position: absolute;
     display: -ms-flexbox;
@@ -355,10 +355,10 @@ body .container.body .right_col {
 }
 .nav-md .container.body .right_col {
     padding: 10px 20px 0;
-    margin-left: 12%
+    margin-left: 12.8%
 }
 .nav_title {
-    width: 12%;
+    width: 12.8%;
     float: left;
     background: #2A3F54;
     border-radius: 0;
@@ -500,7 +500,7 @@ body {
 }
 .main_container .top_nav {
     display: block;
-    margin-left: 12%
+    margin-left: 12.8%
 }
 .no-padding {
     padding: 0 !important
@@ -1671,7 +1671,7 @@ span.right {
     display: block;
     padding: 5px 0 0 0;
     position: fixed;
-    width: 12%;
+    width: 12.8%;
     background: #2A3F54;
 	z-index:999;
 }
@@ -1702,7 +1702,7 @@ span.right {
 }
 @media (min-width: 992px) {
     footer {
-        margin-left: 12%
+        margin-left: 12.8%
     }
 }
 @media (min-width: 992px) {

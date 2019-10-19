@@ -29,13 +29,13 @@
           </ul>
         </li>
         
-        <li><a><i class="fa fa-bar-chart-o"></i> Analytic Apps <span class="fa fa-chevron-down"></span></a>
+        <li><a><i class="fa fa-key"></i> Security <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
-            <li><a href="/Analytics/demo">Demo</a></li>
+            <li><a href="/Security/jwt_access">Get Token</a></li>
           </ul>
         </li>
         
-        <li><a><i class="fa fa-cog"></i> Setting <span class="fa fa-chevron-down"></span></a>
+        <li><a><i class="fa fa-cog"></i> Settings <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             {% if Is_admin %}
               <li><a href="/setting/add_user">Add User</a></li>
@@ -47,7 +47,6 @@
               <li><a href="/setting/add_sensor">Add Sensor</a></li>
               <li><a href="/setting/delete_sensor">Delete Sensor</a></li>
               <li><a href="/setting/change_password">Change Password</a></li>
-              <li><a href="/setting/jwt_access">Get Token</a></li>
             {% endif %}
           </ul>
         </li>

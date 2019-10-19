@@ -33,6 +33,3 @@ class add_sensor_Form(FlaskForm):
 
 class delete_sensor_Form(FlaskForm):
     device_id = TextField('Type Sensor Device ID', id='device_id')
-
-class get_access_token_Form(FlaskForm):
-    time = IntegerField('Type Access Token Expiration Time (minutes)', id = 'exp_time')

@@ -49,12 +49,12 @@ class Sensor(Resource):
         data = Sensor.parser.parse_args()
         current_user_id = get_jwt_identity()
         if current_user_id != int(sensor_id.split("_")[0]):
-            return jsonify({"message":"You are not authenticated to post by this token!"})
+            return {"message":"You are not authenticated to post by this token!"}, 401
         sensor_data = SensorModel(sensor_id, **data)
         try:
             sensor_data.save_to_mongo()
         except:
-            return jsonify({"message":"There is a problem in Database!"})
+            return {"message":"There is a problem in Database!"}, 500
         return jsonify(sensor_data.jsonify())
 
 

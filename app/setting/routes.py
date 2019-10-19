@@ -9,8 +9,7 @@ from .forms import (
     add_field_Form,
     add_sensor_Form,
     delete_field_Form,
-    delete_sensor_Form,
-    get_access_token_Form
+    delete_sensor_Form
     )
 from flask_jwt_extended import (
     create_access_token,
