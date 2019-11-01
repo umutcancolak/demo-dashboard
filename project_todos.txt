@@ -48,10 +48,14 @@
      - Readme.md dosyasını düzenle +
        - Gentenella ve antoine fourmi diye bahset +         
    - Signin sayfasında tarla ve özelliklerini de al (optional)
-   - Mongodb connection string ayarını config dosyasına koy
-   - Add/delete field/sensor sayfalarını dropdown yap
+   - Add/delete field/sensor sayfalarını dropdown yap +
+   - Valve için ayrı mongodb collection yap ve sistemi ayağa kaldır
+     - Önce Database objesini ObserverDatabase olarak dönüştür sistemi eskisi gibi çalıştır
+     - ValveDatabase objesini oluştur ve sensor modelini yarat
+     - Endpointini oluştur ve sistem yüklenmesine göre düzenleme yap
    - Sensor control dashboard sayfası yap
-     - 
+   - Mongodb connection string ayarını config dosyasına koy
+   - Özellikle routes.py dosyaları ama hepsi için refaktoring yap   
    
 
 
