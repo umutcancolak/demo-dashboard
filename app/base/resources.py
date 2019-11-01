@@ -14,17 +14,20 @@ import pandas as pd
 class Sensors(Resource):
     @jwt_required
     def get(self):
-
-        # return jsonify({"message": [user.jsonify_all() for user in User.find_all()]})
-        # return jsonify({"message": User.find_by_username("umutcan").jsonify_all()})
-        sensor_data = SensorModel.find_last_n_data_by_id("2_1", n=20)
-        
-        return jsonify({
-            "dates":[data["date"] for data in sensor_data],
-            "moists":[data["moisture"] for data in sensor_data],
-            "temps":[data["temperature"] for data in sensor_data]
-            })
+        return jsonify({"message": [user.jsonify_all() for user in User.find_all()]})
+        # user_data = User.find_by_username("umut").jsonify_all()
+        # field_df = pd.DataFrame(user_data["sensor_info"])
+        # fields = list(field_df["sensor_unique_id"].unique())
+        # return jsonify({"message": fields})
+        # sensor_data = SensorModel.find_last_n_data_by_id("2_1", n=20)
+        # return jsonify({
+        #     "dates":[data["date"] for data in sensor_data],
+        #     "moists":[data["moisture"] for data in sensor_data],
+        #     "temps":[data["temperature"] for data in sensor_data]
+        #     })
         # return jsonify({"data":SensorInformationModel.find_unique_ids_by_user_id(2)})
+        pass
+        
 
 class Sensor(Resource):
     parser = reqparse.RequestParser()

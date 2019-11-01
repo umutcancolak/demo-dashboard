@@ -48,6 +48,11 @@
      - Readme.md dosyasını düzenle +
        - Gentenella ve antoine fourmi diye bahset +         
    - Signin sayfasında tarla ve özelliklerini de al (optional)
+   - Mongodb connection string ayarını config dosyasına koy
+   - Add/delete field/sensor sayfalarını dropdown yap
+   - Sensor control dashboard sayfası yap
+     - 
+   
 
 
 

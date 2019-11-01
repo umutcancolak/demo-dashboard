@@ -19,6 +19,7 @@
                       <h1>Delete Sensor</h1>
                       {% for field in form if field.widget.input_type != 'hidden'  %}
                         <div>
+                          {{ field.label.text }}
                           {{ field(class="form-control required", placeholder=field.label.text) }}
                         </div>
                       {% endfor %}

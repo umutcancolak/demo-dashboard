@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import TextField, PasswordField, IntegerField
+from wtforms import TextField, PasswordField, IntegerField, SelectField
 
 ## login and registration
 
@@ -25,11 +25,27 @@ class add_field_Form(FlaskForm):
     field_name = TextField('Type Field Name', id='field_name')
 
 class delete_field_Form(FlaskForm):
-    field_name = TextField('Type Field Name', id='deleted_field_name')
+    field_name = SelectField(
+        'Select Field Name',
+        id='field_name',
+        coerce=str
+        ) 
 
 class add_sensor_Form(FlaskForm):
-    field_name = TextField('Type Field Name', id='sensor_field_name')
-    sensor_name = TextField('Type Sensor Name', id='sensor_name')
+    field_name = SelectField(
+        'Select Field Name',
+        id='field_name',
+        coerce=str
+        )
+    sensor_name = SelectField(
+        'Select Sensor Type', 
+        id='field_name',
+        choices=[('valve','Valve'),('observer','Observer')]
+        )
 
 class delete_sensor_Form(FlaskForm):
-    device_id = TextField('Type Sensor Device ID', id='device_id')
+    device_id = SelectField(
+        'Select Sensor ID',
+        id='sensor_id',
+        coerce=str
+        )
